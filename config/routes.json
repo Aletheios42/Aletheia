@@ -1,0 +1,170 @@
+{
+  "routes": {
+    "/": {
+      "component": "home",
+      "title": {
+        "es": "Inicio - Blog Técnico",
+        "en": "Home - Technical Blog"
+      },
+      "description": {
+        "es": "Blog personal multiformat con contenido técnico sobre matemáticas, programación y ciencia",
+        "en": "Personal multiformat blog with technical content about mathematics, programming and science"
+      }
+    },
+    "/articles": {
+      "component": "articles",
+      "title": {
+        "es": "Artículos - Blog Técnico",
+        "en": "Articles - Technical Blog"
+      },
+      "description": {
+        "es": "Lista completa de artículos técnicos sobre matemáticas, programación, física y ciencia de datos",
+        "en": "Complete list of technical articles about mathematics, programming, physics and data science"
+      }
+    },
+    "/article/:id": {
+      "component": "article",
+      "title": {
+        "es": "Artículo - Blog Técnico",
+        "en": "Article - Technical Blog"
+      },
+      "description": {
+        "es": "Artículo técnico detallado",
+        "en": "Detailed technical article"
+      },
+      "dynamic": true,
+      "params": ["id"]
+    },
+    "/tag/:tag": {
+      "component": "tag",
+      "title": {
+        "es": "Tag: {tag} - Blog Técnico",
+        "en": "Tag: {tag} - Technical Blog"
+      },
+      "description": {
+        "es": "Artículos etiquetados con {tag}",
+        "en": "Articles tagged with {tag}"
+      },
+      "dynamic": true,
+      "params": ["tag"]
+    },
+    "/about": {
+      "component": "page",
+      "file": "content/pages/about.md",
+      "title": {
+        "es": "Acerca de - Blog Técnico",
+        "en": "About - Technical Blog"
+      },
+      "description": {
+        "es": "Información sobre el blog, tecnologías utilizadas y filosofía del proyecto",
+        "en": "Information about the blog, technologies used and project philosophy"
+      }
+    },
+    "/contact": {
+      "component": "page",
+      "file": "content/pages/contact.md",
+      "title": {
+        "es": "Contacto - Blog Técnico",
+        "en": "Contact - Technical Blog"
+      },
+      "description": {
+        "es": "Información de contacto y formas de colaboración",
+        "en": "Contact information and collaboration opportunities"
+      }
+    },
+    "/search": {
+      "component": "search",
+      "title": {
+        "es": "Búsqueda - Blog Técnico",
+        "en": "Search - Technical Blog"
+      },
+      "description": {
+        "es": "Buscar contenido en el blog",
+        "en": "Search blog content"
+      }
+    },
+    "/404": {
+      "component": "notFound",
+      "title": {
+        "es": "Página no encontrada - Blog Técnico",
+        "en": "Page not found - Technical Blog"
+      },
+      "description": {
+        "es": "La página solicitada no existe",
+        "en": "The requested page does not exist"
+      }
+    }
+  },
+  "redirects": {
+    "/inicio": "/",
+    "/articulos": "/articles",
+    "/acerca": "/about",
+    "/contacto": "/contact",
+    "/buscar": "/search"
+  },
+  "meta": {
+    "defaultTitle": {
+      "es": "Blog Técnico",
+      "en": "Technical Blog"
+    },
+    "defaultDescription": {
+      "es": "Blog personal multiformat con contenido técnico avanzado",
+      "en": "Personal multiformat blog with advanced technical content"
+    },
+    "keywords": [
+      "matemáticas", "mathematics", "programación", "programming", 
+      "javascript", "python", "latex", "jupyter", "ciencia de datos", 
+      "data science", "física", "physics", "cálculo", "calculus"
+    ],
+    "author": "Blog Técnico",
+    "language": "es",
+    "alternateLanguages": ["en"],
+    "canonical": "https://blog-tecnico.com"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "route": "/",
+        "label": {
+          "es": "Inicio",
+          "en": "Home"
+        },
+        "icon": "🏠"
+      },
+      {
+        "route": "/articles",
+        "label": {
+          "es": "Artículos",
+          "en": "Articles"
+        },
+        "icon": "📚"
+      },
+      {
+        "route": "/about",
+        "label": {
+          "es": "Acerca de",
+          "en": "About"
+        },
+        "icon": "ℹ️"
+      },
+      {
+        "route": "/contact",
+        "label": {
+          "es": "Contacto",
+          "en": "Contact"
+        },
+        "icon": "📧"
+      }
+    ],
+    "secondary": [
+      {
+        "route": "/search",
+        "label": {
+          "es": "Buscar",
+          "en": "Search"
+        },
+        "icon": "🔍"
+      }
+    ]
+  }
+}

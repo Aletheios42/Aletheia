@@ -1,0 +1,37 @@
+{
+  "mathematics": {
+    "name": {"es": "Matemáticas", "en": "Mathematics"},
+    "color": "#e74c3c",
+    "children": ["algebra", "calculus", "statistics", "geometry"]
+  },
+  "programming": {
+    "name": {"es": "Programación", "en": "Programming"},
+    "color": "#3498db", 
+    "children": ["javascript", "python", "algorithms", "data-structures"]
+  },
+  "physics": {
+    "name": {"es": "Física", "en": "Physics"},
+    "color": "#9b59b6",
+    "children": ["mechanics", "thermodynamics", "quantum", "relativity"]
+  },
+  "data-science": {
+    "name": {"es": "Ciencia de Datos", "en": "Data Science"},
+    "color": "#f39c12",
+    "children": ["machine-learning", "statistics", "visualization", "analysis"]
+  },
+  "tutorial": {
+    "name": {"es": "Tutorial", "en": "Tutorial"}, 
+    "color": "#27ae60",
+    "children": []
+  },
+  "theory": {
+    "name": {"es": "Teoría", "en": "Theory"},
+    "color": "#34495e",
+    "children": []
+  },
+  "javascript": {"name": {"es": "JavaScript", "en": "JavaScript"}, "color": "#f7df1e"},
+  "python": {"name": {"es": "Python", "en": "Python"}, "color": "#3776ab"},
+  "algebra": {"name": {"es": "Álgebra", "en": "Algebra"}, "color": "#e74c3c"},
+  "calculus": {"name": {"es": "Cálculo", "en": "Calculus"}, "color": "#e74c3c"},
+  "machine-learning": {"name": {"es": "Machine Learning", "en": "Machine Learning"}, "color": "#f39c12"}
+}

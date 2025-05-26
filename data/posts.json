@@ -1,0 +1,77 @@
+{
+  "posts": [
+    {
+      "id": "ejemplo-markdown",
+      "title": {
+        "es": "Introducción a JavaScript Moderno",
+        "en": "Introduction to Modern JavaScript"
+      },
+      "description": {
+        "es": "Guía sobre las características más importantes de JavaScript ES6+ con ejemplos prácticos.",
+        "en": "Guide to the most important features of JavaScript ES6+ with practical examples."
+      },
+      "format": "markdown",
+      "content": "# Introducción a JavaScript Moderno\n\nEste es un artículo sobre las características modernas de JavaScript que todo desarrollador debería conocer.\n\n## Arrow Functions\n\nLas funciones flecha proporcionan una sintaxis más concisa:\n\n```javascript\n// Función tradicional\nfunction suma(a, b) {\n    return a + b;\n}\n\n// Arrow function\nconst suma = (a, b) => a + b;\n```\n\n## Destructuring\n\nPermite extraer valores de arrays u objetos:\n\n```javascript\nconst persona = { nombre: 'Juan', edad: 30 };\nconst { nombre, edad } = persona;\n\nconst numeros = [1, 2, 3];\nconst [primero, segundo] = numeros;\n```\n\n## Async/Await\n\nSimplifica el trabajo con promesas:\n\n```javascript\nasync function obtenerDatos() {\n    try {\n        const respuesta = await fetch('/api/datos');\n        const datos = await respuesta.json();\n        return datos;\n    } catch (error) {\n        console.error('Error:', error);\n    }\n}\n```\n\n## Matemáticas con LaTeX\n\nTambién podemos incluir fórmulas matemáticas: $f(x) = x^2 + 2x + 1$\n\nY ecuaciones en bloque:\n\n$$\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$\n\n---\n\nEste es un ejemplo de cómo combinar código, texto y matemáticas.",
+      "date": "2025-05-26",
+      "tags": ["javascript", "programming", "tutorial"],
+      "language": "es",
+      "readTime": 8
+    },
+    {
+      "id": "ejemplo-latex",
+      "title": {
+        "es": "Fundamentos de Cálculo Diferencial", 
+        "en": "Differential Calculus Fundamentals"
+      },
+      "description": {
+        "es": "Introducción a los conceptos básicos del cálculo diferencial con ejemplos y aplicaciones.",
+        "en": "Introduction to basic concepts of differential calculus with examples and applications."
+      },
+      "format": "latex",
+      "content": "\\section{Cálculo Diferencial}\n\nEl cálculo diferencial estudia las tasas de cambio y las pendientes de curvas.\n\n\\subsection{Definición de Derivada}\n\nLa derivada de una función $f(x)$ en un punto $x = a$ se define como:\n\n\\[\nf'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}\n\\]\n\n\\subsection{Reglas de Derivación}\n\n\\textbf{Regla del producto:} Si $f(x) = u(x) \\cdot v(x)$, entonces:\n\\[\nf'(x) = u'(x) \\cdot v(x) + u(x) \\cdot v'(x)\n\\]\n\n\\textbf{Regla de la cadena:} Si $f(x) = g(h(x))$, entonces:\n\\[\nf'(x) = g'(h(x)) \\cdot h'(x)\n\\]\n\n\\subsection{Aplicaciones}\n\nLas derivadas tienen múltiples aplicaciones:\n\n\\begin{itemize}\n    \\item Encontrar máximos y mínimos de funciones\n    \\item Calcular velocidades instantáneas  \n    \\item Determinar la concavidad de curvas\n    \\item Resolver problemas de optimización\n\\end{itemize}\n\n\\subsection{Ejemplo Práctico}\n\nConsideremos la función $f(x) = x^3 - 3x^2 + 2x + 1$.\n\nSu derivada es:\n\\[\nf'(x) = 3x^2 - 6x + 2\n\\]\n\nPara encontrar los puntos críticos, resolvemos $f'(x) = 0$:\n\\[\n3x^2 - 6x + 2 = 0\n\\]\n\nUsando la fórmula cuadrática:\n\\[\nx = \\frac{6 \\pm \\sqrt{36 - 24}}{6} = \\frac{6 \\pm 2\\sqrt{3}}{6} = 1 \\pm \\frac{\\sqrt{3}}{3}\n\\]",
+      "date": "2025-05-25",
+      "tags": ["mathematics", "calculus", "theory"],
+      "language": "es",
+      "readTime": 12
+    },
+    {
+      "id": "ejemplo-notebook",
+      "title": {
+        "es": "Análisis de Datos con Python",
+        "en": "Data Analysis with Python"
+      },
+      "description": {
+        "es": "Jupyter notebook completo mostrando análisis exploratorio de datos, visualizaciones y estadísticas con pandas, numpy y matplotlib.",
+        "en": "Complete Jupyter notebook showing exploratory data analysis, visualizations and statistics with pandas, numpy and matplotlib."
+      },
+      "format": "notebook",
+      "file": "content/posts/ejemplo-notebook.ipynb",
+      "date": "2025-05-24",
+      "tags": ["python", "data-science", "pandas", "matplotlib", "tutorial"],
+      "language": "es",
+      "readTime": 20
+    },
+    {
+      "id": "ejemplo-video",
+      "title": {
+        "es": "Tutorial: Configuración de Git",
+        "en": "Tutorial: Git Setup"
+      },
+      "description": {
+        "es": "Video tutorial sobre cómo configurar Git desde cero para proyectos de desarrollo.",
+        "en": "Video tutorial on how to set up Git from scratch for development projects."
+      },
+      "format": "video",
+      "content": "dQw4w9WgXcQ",
+      "date": "2025-05-23", 
+      "tags": ["git", "tutorial", "programming"],
+      "language": "es",
+      "readTime": 15
+    }
+  ],
+  "meta": {
+    "total": 4,
+    "lastUpdated": "2025-05-26",
+    "version": "1.0"
+  }
+}

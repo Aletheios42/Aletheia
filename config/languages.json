@@ -1,0 +1,104 @@
+{
+  "es": {
+    "nav": {
+      "articles": "Artículos",
+      "about": "Acerca de",
+      "contact": "Contacto",
+      "search": "Buscar..."
+    },
+    "filters": {
+      "title": "Filtros",
+      "format": "Formato",
+      "tags": "Tags",
+      "date": "Fecha",
+      "clear": "Limpiar filtros",
+      "moreFilters": "🔽 Más filtros",
+      "dateOptions": {
+        "all": "Todas",
+        "week": "Última semana",
+        "month": "Último mes", 
+        "year": "Último año"
+      }
+    },
+    "quickFilters": {
+      "mathematics": "🏷️ Matemáticas",
+      "programming": "💻 Programación",
+      "dataScience": "📊 Datos",
+      "physics": "🔬 Física"
+    },
+    "sort": {
+      "orderBy": "🔽 Ordenar por",
+      "dateRecent": "📅 Fecha (reciente)",
+      "dateOld": "📅 Fecha (antiguo)",
+      "titleAZ": "🔤 Título A-Z",
+      "titleZA": "🔤 Título Z-A",
+      "readTime": "⏱️ Tiempo lectura"
+    },
+    "content": {
+      "loading": "Cargando...",
+      "noResults": "No se encontraron resultados",
+      "readMore": "Leer más",
+      "backToList": "Volver a la lista",
+      "previousPost": "Anterior",
+      "nextPost": "Siguiente"
+    },
+    "formats": {
+      "markdown": "Markdown",
+      "latex": "LaTeX",
+      "notebook": "Notebook",
+      "video": "Video",
+      "html": "HTML"
+    }
+  },
+  "en": {
+    "nav": {
+      "articles": "Articles",
+      "about": "About",
+      "contact": "Contact", 
+      "search": "Search..."
+    },
+    "filters": {
+      "title": "Filters",
+      "format": "Format",
+      "tags": "Tags",
+      "date": "Date",
+      "clear": "Clear filters",
+      "moreFilters": "🔽 More filters",
+      "dateOptions": {
+        "all": "All",
+        "week": "Last week",
+        "month": "Last month",
+        "year": "Last year"
+      }
+    },
+    "quickFilters": {
+      "mathematics": "🏷️ Mathematics",
+      "programming": "💻 Programming",
+      "dataScience": "📊 Data",
+      "physics": "🔬 Physics"
+    },
+    "sort": {
+      "orderBy": "🔽 Sort by",
+      "dateRecent": "📅 Date (recent)",
+      "dateOld": "📅 Date (old)",
+      "titleAZ": "🔤 Title A-Z",
+      "titleZA": "🔤 Title Z-A",
+      "readTime": "⏱️ Read time"
+    },
+    "content": {
+      "loading": "Loading...",
+      "noResults": "No results found",
+      "readMore": "Read more",
+      "backToList": "Back to list", 
+      "previousPost": "Previous",
+      "nextPost": "Next"
+    },
+    "formats": {
+      "markdown": "Markdown",
+      "latex": "LaTeX", 
+      "notebook": "Notebook",
+      "video": "Video",
+      "html": "HTML"
+    }
+  }
+}

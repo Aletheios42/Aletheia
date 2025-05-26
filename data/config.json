@@ -1,0 +1,54 @@
+{
+  "site": {
+    "title": "Blog Técnico",
+    "description": "Blog personal multiformat con contenido técnico",
+    "defaultLanguage": "es",
+    "postsPerPage": 9,
+    "enableSearch": true,
+    "enableFilters": true
+  },
+  "formats": {
+    "markdown": {
+      "enabled": true,
+      "renderer": "marked",
+      "extensions": [".md", ".markdown"]
+    },
+    "latex": {
+      "enabled": true,
+      "renderer": "katex",
+      "extensions": [".tex", ".latex"]
+    },
+    "notebook": {
+      "enabled": true,
+      "renderer": "custom",
+      "extensions": [".ipynb"]
+    },
+    "video": {
+      "enabled": true,
+      "renderer": "html5",
+      "extensions": [".mp4", ".webm", ".ogg"]
+    },
+    "html": {
+      "enabled": true,
+      "renderer": "native",
+      "extensions": [".html"]
+    }
+  },
+  "katex": {
+    "delimiters": [
+      {"left": "$$", "right": "$$", "display": true},
+      {"left": "$", "right": "$", "display": false},
+      {"left": "\\[", "right": "\\]", "display": true},
+      {"left": "\\(", "right": "\\)", "display": false}
+    ],
+    "throwOnError": false,
+    "strict": false
+  },
+  "marked": {
+    "breaks": true,
+    "gfm": true,
+    "headerIds": true,
+    "highlight": true
+  }
+}
+

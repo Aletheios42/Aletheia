@@ -1,6 +1,124 @@
-<nav> 
-  <ul>
-    <li> Casa </li>
-    <li>  Artículos </li>
-  </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Técnico</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="#/" data-route="home">Blog Técnico</a></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#/articles" data-route="articles" data-i18n="nav.articles">Artículos</a></li>
+                <li><a href="#/about" data-route="about" data-i18n="nav.about">Acerca de</a></li>
+                <li><a href="#/contact" data-route="contact" data-i18n="nav.contact">Contacto</a></li>
+            </ul>
+            <div class="nav-controls">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Buscar..." data-i18n-placeholder="nav.search">
+                    <button id="search-btn">🔍</button>
+                </div>
+                <div class="language-selector">
+                    <button id="lang-toggle" class="lang-btn">
+                        <span id="current-lang">ES</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div id="lang-dropdown" class="lang-dropdown hidden">
+                        <div class="lang-option" data-lang="es">🇪🇸 Español</div>
+                        <div class="lang-option" data-lang="en">🇬🇧 English</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <!-- Búsqueda siempre visible -->
+                <div class="search-section">
+                    <div class="search-box-sidebar">
+                        <input type="text" id="search-input-sidebar" placeholder="Buscar..." data-i18n-placeholder="nav.search">
+                        <button id="search-btn-sidebar">🔍</button>
+                    </div>
+                </div>
+
+                <!-- Quick filters -->
+                <div class="quick-filters">
+                    <button class="quick-filter-btn" data-category="mathematics" data-i18n="quickFilters.mathematics">🏷️ Matemáticas</button>
+                    <button class="quick-filter-btn" data-category="programming" data-i18n="quickFilters.programming">💻 Programación</button>
+                    <button class="quick-filter-btn" data-category="data-science" data-i18n="quickFilters.dataScience">📊 Datos</button>
+                    <button class="quick-filter-btn" data-category="physics" data-i18n="quickFilters.physics">🔬 Física</button>
+                </div>
+
+                <!-- Toggle para más filtros -->
+                <button id="toggle-filters" class="toggle-filters-btn" data-i18n="filters.moreFilters">
+                    🔽 Más filtros
+                </button>
+
+                <!-- Filtros expandibles -->
+                <div id="expanded-filters" class="expanded-filters hidden">
+                    <div class="filter-group">
+                        <h4 data-i18n="filters.tags">Tags</h4>
+                        <div class="filter-options" id="tag-filters"></div>
+                    </div>
+                    <div class="filter-group">
+                        <h4 data-i18n="filters.date">Fecha</h4>
+                        <select id="date-filter">
+                            <option value="" data-i18n="filters.dateOptions.all">Todas</option>
+                            <option value="week" data-i18n="filters.dateOptions.week">Última semana</option>
+                            <option value="month" data-i18n="filters.dateOptions.month">Último mes</option>
+                            <option value="year" data-i18n="filters.dateOptions.year">Último año</option>
+                        </select>
+                    </div>
+                    <button id="clear-filters" data-i18n="filters.clear">Limpiar filtros</button>
+                </div>
+
+                <!-- Filtros activos -->
+                <div id="active-filters" class="active-filters"></div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="breadcrumbs" id="breadcrumbs"></div>
+            
+            <!-- Botón de ordenación -->
+            <div class="sort-section">
+                <div class="sort-dropdown">
+                    <button id="sort-toggle" class="sort-btn" data-i18n="sort.orderBy">
+                        🔽 Ordenar por
+                    </button>
+                    <div id="sort-options" class="sort-options hidden">
+                        <div class="sort-option" data-sort="date" data-order="desc" data-i18n="sort.dateRecent">📅 Fecha (reciente)</div>
+                        <div class="sort-option" data-sort="date" data-order="asc" data-i18n="sort.dateOld">📅 Fecha (antiguo)</div>
+                        <div class="sort-option" data-sort="title" data-order="asc" data-i18n="sort.titleAZ">🔤 Título A-Z</div>
+                        <div class="sort-option" data-sort="title" data-order="desc" data-i18n="sort.titleZA">🔤 Título Z-A</div>
+                        <div class="sort-option" data-sort="readTime" data-order="asc" data-i18n="sort.readTime">⏱️ Tiempo lectura</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid" id="content-grid"></div>
+            <div class="article-view" id="article-view" style="display: none;"></div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 Blog Técnico. Contenido bajo licencia académica.</p>
+    </footer>
+
+    <script src="js/utils/storage.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
