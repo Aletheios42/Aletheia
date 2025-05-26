@@ -408,50 +408,6 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
     }
 
     setupFilterListeners() {
-        // Quick filters
-        document.querySelectorAll('.quick-filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const category = e.target.dataset.category;
-                this.toggleQuickFilter(category);
-            });
-        });
-
-        // Toggle más filtros
-        const toggleFilters = document.getElementById('toggle-filters');
-        const expandedFilters = document.getElementById('expanded-filters');
-        if (toggleFilters && expandedFilters) {
-            toggleFilters.addEventListener('click', () => {
-                expandedFilters.classList.toggle('hidden');
-                toggleFilters.textContent = expandedFilters.classList.contains('hidden') 
-                    ? window.i18n.t('filters.moreFilters')
-                    : '🔼 ' + window.i18n.t('filters.lessFilters', 'Menos filtros');
-            });
-        }
-
-        // Sort dropdown
-        const sortToggle = document.getElementById('sort-toggle');
-        const sortOptions = document.getElementById('sort-options');
-        if (sortToggle && sortOptions) {
-            sortToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sortOptions.classList.toggle('hidden');
-            });
-
-            sortOptions.addEventListener('click', (e) => {
-                const option = e.target.closest('.sort-option');
-                if (option) {
-                    const sortBy = option.dataset.sort;
-                    const order = option.dataset.order;
-                    this.updateSort(sortBy, order);
-                    sortOptions.classList.add('hidden');
-                }
-            });
-
-            document.addEventListener('click', () => {
-                sortOptions.classList.add('hidden');
-            });
-        }
-
         // Filtro de fecha
         const dateFilter = document.getElementById('date-filter');
         if (dateFilter) {
@@ -555,7 +511,7 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
         `;
 
         try {
-            const content = await Helpers.loadText(filePath);
+            const content = await this.loadText(filePath);
             const renderedContent = await this.renderMarkdown(content);
             
             articleView.innerHTML = `
@@ -659,12 +615,6 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
             `;
             dateFilter.value = selectedValue;
         }
-
-        // Actualizar labels de formatos
-        document.querySelectorAll('#format-filters label span[data-i18n]').forEach(span => {
-            const key = span.getAttribute('data-i18n');
-            span.textContent = window.i18n.t(key);
-        });
 
         // Re-generar filtros de tags para actualizar textos
         this.updateTagFilters();
@@ -887,6 +837,7 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
 
         try {
             console.log('Rendering content for format:', post.format);
+            console.log('Content type:', typeof post.content);
             const renderedContent = await this.renderContent(post.content, post.format);
             console.log('Content rendered successfully');
             
@@ -943,17 +894,57 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
     }
 
     async renderContent(content, format) {
-        console.log('Rendering content, format:', format);
-        console.log('Content length:', content.length);
+        console.log('=== RENDER CONTENT DEBUG ===');
+        console.log('Format:', format);
+        console.log('Content type:', typeof content);
+        console.log('Content preview:', content);
         
         switch (format) {
             case 'markdown':
                 return await this.renderMarkdown(content);
             case 'latex':
                 return await this.renderLaTeX(content);
+            case 'notebook':
+                console.log('Processing notebook...');
+                // Verificar si NotebookRenderer está disponible
+                if (typeof NotebookRenderer !== 'undefined') {
+                    console.log('NotebookRenderer available');
+                    // Si el content es un objeto, pasarlo directamente
+                    // Si es string, intentar parsearlo
+                    let notebookData = content;
+                    if (typeof content === 'string') {
+                        console.log('Content is string, attempting to parse JSON');
+                        try {
+                            notebookData = JSON.parse(content);
+                            console.log('JSON parsed successfully');
+                        } catch (e) {
+                            console.error('Error parsing notebook JSON:', e);
+                            return `<p>Error: No se pudo procesar el notebook JSON: ${e.message}</p>`;
+                        }
+                    } else {
+                        console.log('Content is already an object');
+                    }
+                    console.log('Calling NotebookRenderer.render...');
+                    try {
+                        const result = await NotebookRenderer.render(notebookData);
+                        console.log('NotebookRenderer.render completed successfully');
+                        return result;
+                    } catch (e) {
+                        console.error('Error in NotebookRenderer.render:', e);
+                        return `<p>Error en el renderizado del notebook: ${e.message}</p>`;
+                    }
+                } else {
+                    console.error('NotebookRenderer not available');
+                    return `<p>Error: NotebookRenderer no está disponible</p>`;
+                }
+            case 'video':
+                return this.renderVideo(content);
+            case 'html':
+                return content;
             default:
                 console.log('Using fallback renderer');
-                return `<pre>${this.escapeHtml(content)}</pre>`;
+                const displayContent = typeof content === 'string' ? content : JSON.stringify(content, null, 2);
+                return `<pre>${this.escapeHtml(displayContent)}</pre>`;
         }
     }
 
@@ -1090,6 +1081,38 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
         return content;
     }
 
+    renderVideo(url) {
+        // Detectar tipo de video
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            const videoId = this.extractYouTubeId(url);
+            return `
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            `;
+        } else {
+            // Video local
+            return `
+                <div class="video-container">
+                    <video controls>
+                        <source src="${url}" type="video/mp4">
+                        Tu navegador no soporta el elemento video.
+                    </video>
+                </div>
+            `;
+        }
+    }
+
+    extractYouTubeId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : '';
+    }
+
     updateTagFilters() {
         // Implementación básica de filtros de tags
         const tagFilters = document.getElementById('tag-filters');
@@ -1122,6 +1145,14 @@ $$\\int_0^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$
             label.appendChild(document.createTextNode(' ' + window.i18n.getLocalizedContent(tag.name)));
             tagFilters.appendChild(label);
         });
+    }
+
+    async loadText(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
     }
 
     escapeHtml(text) {

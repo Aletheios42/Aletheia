@@ -404,6 +404,7 @@
     background: var(--bg-color);
     border-radius: var(--border-radius);
     overflow: hidden;
+    max-width: 100%;
 }
 
 .notebook-cell {
@@ -411,75 +412,250 @@
     margin: 1rem 0;
     border-radius: var(--border-radius);
     overflow: hidden;
+    background: var(--bg-color);
 }
 
 .cell-input {
     background: var(--bg-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cell-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
-    border-top: 2px solid var(--accent-color);
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .cell-output {
     background: var(--bg-color);
-    padding: 1rem;
-    border-top: 1px solid var(--border-color);
+    min-height: 50px;
 }
 
 .cell-prompt {
     font-family: var(--font-mono);
     font-size: 0.9em;
     color: var(--text-light);
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    min-width: 80px;
+}
+
+.execute-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.execute-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #218838, #1aa179);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+    transform: translateY(-1px);
+}
+
+.execute-btn:disabled {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 .cell-code {
     font-family: var(--font-mono);
-    background: var(--bg-color);
+    background: #f8f9fa;
     padding: 1rem;
-    border-radius: var(--border-radius);
     overflow-x: auto;
+    border-top: 1px solid var(--border-color);
+}
+
+.cell-code pre {
+    margin: 0;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.cell-code code {
+    background: none;
+    color: #2d3748;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .cell-markdown {
+    padding: 1rem 1.5rem;
+    background: var(--bg-color);
+}
+
+.cell-markdown h1,
+.cell-markdown h2,
+.cell-markdown h3 {
+    color: var(--primary-color);
+    margin: 1rem 0 0.5rem 0;
+}
+
+.cell-markdown p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.cell-markdown ul,
+.cell-markdown ol {
+    margin: 1rem 0 1rem 2rem;
+}
+
+.cell-markdown code {
+    background: var(--bg-light);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.cell-output-content {
     padding: 1rem;
+    min-height: 40px;
 }
 
 .output-stream {
-    background: var(--bg-light);
-    padding: 0.5rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 1rem;
     border-radius: var(--border-radius);
     font-family: var(--font-mono);
     font-size: 0.9em;
     white-space: pre-wrap;
+    margin: 0.5rem 0;
+    color: #2d3748;
+}
+
+.output-stream.output-stdout {
+    border-left: 4px solid #28a745;
+}
+
+.output-stream.output-stderr {
+    border-left: 4px solid #dc3545;
+    background: #fff5f5;
+}
+
+.output-text {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    margin: 0.5rem 0;
+    border-left: 4px solid #007bff;
 }
 
 .output-error {
-    background: #ffe6e6;
-    border: 1px solid #ff9999;
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-left: 4px solid #e53e3e;
     padding: 1rem;
     border-radius: var(--border-radius);
-    color: #cc0000;
+    color: #c53030;
+    margin: 0.5rem 0;
 }
 
 .error-name {
     font-weight: bold;
     margin-bottom: 0.5rem;
+    color: #e53e3e;
 }
 
 .error-traceback {
     font-family: var(--font-mono);
     font-size: 0.8em;
     white-space: pre-wrap;
-    background: #fff0f0;
+    background: #fef5e7;
     padding: 0.5rem;
     border-radius: var(--border-radius);
     margin-top: 0.5rem;
+    color: #d69e2e;
 }
 
 .output-image {
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius);
+    margin: 0.5rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.output-html {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.output-empty {
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+}
+
+.cell-raw {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-top: 1px solid var(--border-color);
+}
+
+.cell-raw pre {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    color: #2d3748;
+}
+
+/* Animaciones para celdas */
+.notebook-cell {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estados de ejecución */
+.cell-executing {
+    position: relative;
+}
+
+.cell-executing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    animation: loadingBar 2s linear infinite;
+}
+
+@keyframes loadingBar {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 /* LaTeX content */
@@ -522,4 +698,34 @@
 
 .markdown-content li {
     margin-bottom: 0.5rem;
+}
+
+/* Responsive para notebooks */
+@media (max-width: 768px) {
+    .notebook-container {
+        margin: 0;
+    }
+    
+    .cell-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    
+    .execute-btn {
+        align-self: center;
+        min-width: 120px;
+    }
+    
+    .cell-code,
+    .cell-output-content {
+        padding: 0.75rem;
+    }
+    
+    .output-stream,
+    .output-text,
+    .output-error {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
 }

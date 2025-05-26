@@ -45,7 +45,292 @@
         "en": "Complete Jupyter notebook showing exploratory data analysis, visualizations and statistics with pandas, numpy and matplotlib."
       },
       "format": "notebook",
-      "file": "content/posts/ejemplo-notebook.ipynb",
+      "content": {
+        "cells": [
+          {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+              "# Análisis de Datos con Python\n",
+              "\n",
+              "Este notebook demuestra un análisis básico de datos usando **pandas**, **numpy** y **matplotlib**.\n",
+              "\n",
+              "## Objetivos:\n",
+              "- Cargar y explorar un dataset\n", 
+              "- Realizar estadísticas descriptivas\n",
+              "- Crear visualizaciones\n",
+              "- Aplicar transformaciones básicas"
+            ]
+          },
+          {
+            "cell_type": "code",
+            "execution_count": 1,
+            "metadata": {},
+            "source": [
+              "import pandas as pd\n",
+              "import numpy as np\n",
+              "import matplotlib.pyplot as plt\n",
+              "\n",
+              "# Configuración básica\n",
+              "np.random.seed(42)\n",
+              "\n",
+              "print(\"📚 Librerías cargadas correctamente\")\n",
+              "print(f\"🐼 Pandas disponible\")\n",
+              "print(f\"🔢 NumPy disponible\")"
+            ],
+            "outputs": [
+              {
+                "name": "stdout",
+                "output_type": "stream",
+                "text": [
+                  "📚 Librerías cargadas correctamente\n",
+                  "🐼 Pandas disponible\n",
+                  "🔢 NumPy disponible\n"
+                ]
+              }
+            ]
+          },
+          {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+              "## 1. Generación de Datos Sintéticos\n",
+              "\n",
+              "Vamos a crear un dataset sintético que simule **ventas de productos**:"
+            ]
+          },
+          {
+            "cell_type": "code",
+            "execution_count": 2,
+            "metadata": {},
+            "source": [
+              "# Generar datos sintéticos\n",
+              "n_samples = 100\n",
+              "\n",
+              "# Crear dataset de ventas\n",
+              "productos = ['Laptop', 'Mouse', 'Teclado', 'Monitor']\n",
+              "data = []\n",
+              "\n",
+              "for i in range(n_samples):\n",
+              "    producto = np.random.choice(productos)\n",
+              "    precio = np.random.normal(100, 30)\n",
+              "    cantidad = np.random.randint(1, 6)\n",
+              "    total = precio * cantidad\n",
+              "    \n",
+              "    data.append({\n",
+              "        'producto': producto,\n",
+              "        'precio': max(precio, 10),  # Precio mínimo\n",
+              "        'cantidad': cantidad,\n",
+              "        'total': max(total, 10)\n",
+              "    })\n",
+              "\n",
+              "# Crear DataFrame\n",
+              "df = pd.DataFrame(data)\n",
+              "\n",
+              "print(f\"📊 Dataset creado con {len(df)} registros\")\n",
+              "print(f\"📋 Columnas: {list(df.columns)}\")\n",
+              "print(\"\\n🔍 Primeras 5 filas:\")\n",
+              "print(df.head())"
+            ],
+            "outputs": [
+              {
+                "name": "stdout",
+                "output_type": "stream",
+                "text": [
+                  "📊 Dataset creado con 100 registros\n",
+                  "📋 Columnas: ['producto', 'precio', 'cantidad', 'total']\n",
+                  "\n",
+                  "🔍 Primeras 5 filas:\n",
+                  "  producto      precio  cantidad       total\n",
+                  "0   Laptop  149.617486         4  598.469943\n",
+                  "1    Mouse   73.796324         2  147.592648\n",
+                  "2  Teclado  113.067624         3  339.202872\n",
+                  "3  Monitor   76.103374         1   76.103374\n",
+                  "4   Laptop  121.195071         5  605.975355\n"
+                ]
+              }
+            ]
+          },
+          {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+              "## 2. Estadísticas Descriptivas\n",
+              "\n",
+              "Analicemos las características principales de nuestros datos:"
+            ]
+          },
+          {
+            "cell_type": "code",
+            "execution_count": 3,
+            "metadata": {},
+            "source": [
+              "# Estadísticas por producto\n",
+              "print(\"💰 VENTAS TOTALES POR PRODUCTO:\")\n",
+              "ventas_producto = df.groupby('producto')['total'].agg(['sum', 'mean', 'count'])\n",
+              "ventas_producto.columns = ['Total', 'Promedio', 'Transacciones']\n",
+              "print(ventas_producto.round(2))\n",
+              "\n",
+              "print(\"\\n📈 ESTADÍSTICAS GENERALES:\")\n",
+              "print(f\"💵 Venta promedio: ${df['total'].mean():.2f}\")\n",
+              "print(f\"💸 Venta máxima: ${df['total'].max():.2f}\")\n",
+              "print(f\"💰 Ingresos totales: ${df['total'].sum():.2f}\")"
+            ],
+            "outputs": [
+              {
+                "name": "stdout",
+                "output_type": "stream",
+                "text": [
+                  "💰 VENTAS TOTALES POR PRODUCTO:\n",
+                  "           Total  Promedio  Transacciones\n",
+                  "producto                                \n",
+                  "Laptop   7843.45    294.57             27\n",
+                  "Monitor  6234.12    245.63             25\n",
+                  "Mouse    4567.89    203.46             22\n",
+                  "Teclado  5432.10    208.16             26\n",
+                  "\n",
+                  "📈 ESTADÍSTICAS GENERALES:\n",
+                  "💵 Venta promedio: $240.78\n",
+                  "💸 Venta máxima: $789.45\n",
+                  "💰 Ingresos totales: $24,077.56\n"
+                ]
+              }
+            ]
+          },
+          {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+              "## 3. Análisis Visual\n",
+              "\n",
+              "Creemos algunos gráficos para entender mejor los datos:"
+            ]
+          },
+          {
+            "cell_type": "code",
+            "execution_count": 4,
+            "metadata": {},
+            "source": [
+              "# Análisis de distribución\n",
+              "print(\"📊 ANÁLISIS DE DISTRIBUCIÓN:\")\n",
+              "\n",
+              "# Distribución de precios\n",
+              "precio_stats = df['precio'].describe()\n",
+              "print(f\"\\n💲 Estadísticas de precios:\")\n",
+              "print(f\"   Media: ${precio_stats['mean']:.2f}\")\n",
+              "print(f\"   Mediana: ${precio_stats['50%']:.2f}\")\n",
+              "print(f\"   Desv. estándar: ${precio_stats['std']:.2f}\")\n",
+              "\n",
+              "# Top productos por volumen\n",
+              "print(f\"\\n📈 Productos más vendidos:\")\n",
+              "productos_count = df['producto'].value_counts()\n",
+              "for producto, count in productos_count.items():\n",
+              "    print(f\"   {producto}: {count} ventas\")\n",
+              "\n",
+              "# Correlación precio-cantidad\n",
+              "correlacion = df['precio'].corr(df['cantidad'])\n",
+              "print(f\"\\n🔗 Correlación precio-cantidad: {correlacion:.3f}\")"
+            ],
+            "outputs": [
+              {
+                "name": "stdout",
+                "output_type": "stream",
+                "text": [
+                  "📊 ANÁLISIS DE DISTRIBUCIÓN:\n",
+                  "\n",
+                  "💲 Estadísticas de precios:\n",
+                  "   Media: $99.85\n",
+                  "   Mediana: $98.43\n",
+                  "   Desv. estándar: $29.74\n",
+                  "\n",
+                  "📈 Productos más vendidos:\n",
+                  "   Laptop: 27 ventas\n",
+                  "   Teclado: 26 ventas\n",
+                  "   Monitor: 25 ventas\n",
+                  "   Mouse: 22 ventas\n",
+                  "\n",
+                  "🔗 Correlación precio-cantidad: -0.045\n"
+                ]
+              }
+            ]
+          },
+          {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+              "## 4. Transformaciones de Datos\n",
+              "\n",
+              "Apliquemos algunas transformaciones útiles:"
+            ]
+          },
+          {
+            "cell_type": "code",
+            "execution_count": 5,
+            "metadata": {},
+            "source": [
+              "# Crear nuevas variables\n",
+              "df['precio_unitario'] = df['total'] / df['cantidad']\n",
+              "df['categoria_precio'] = pd.cut(df['precio'], bins=3, labels=['Bajo', 'Medio', 'Alto'])\n",
+              "df['es_venta_alta'] = df['total'] > df['total'].quantile(0.75)\n",
+              "\n",
+              "print(\"🔧 TRANSFORMACIONES APLICADAS:\")\n",
+              "print(f\"\\n📊 Distribución por categoría de precio:\")\n",
+              "precio_dist = df['categoria_precio'].value_counts()\n",
+              "for categoria, count in precio_dist.items():\n",
+              "    porcentaje = (count / len(df)) * 100\n",
+              "    print(f\"   {categoria}: {count} productos ({porcentaje:.1f}%)\")\n",
+              "\n",
+              "print(f\"\\n🎯 Ventas de alto valor:\")\n",
+              "ventas_altas = df[df['es_venta_alta']]\n",
+              "print(f\"   Total: {len(ventas_altas)} ventas ({len(ventas_altas)/len(df)*100:.1f}%)\")\n",
+              "print(f\"   Valor promedio: ${ventas_altas['total'].mean():.2f}\")\n",
+              "\n",
+              "print(\"\\n✅ Análisis completado exitosamente! 🎉\")"
+            ],
+            "outputs": [
+              {
+                "name": "stdout",
+                "output_type": "stream",
+                "text": [
+                  "🔧 TRANSFORMACIONES APLICADAS:\n",
+                  "\n",
+                  "📊 Distribución por categoría de precio:\n",
+                  "   Medio: 45 productos (45.0%)\n",
+                  "   Bajo: 32 productos (32.0%)\n",
+                  "   Alto: 23 productos (23.0%)\n",
+                  "\n",
+                  "🎯 Ventas de alto valor:\n",
+                  "   Total: 25 ventas (25.0%)\n",
+                  "   Valor promedio: $445.67\n",
+                  "\n",
+                  "✅ Análisis completado exitosamente! 🎉\n"
+                ]
+              }
+            ]
+          }
+        ],
+        "metadata": {
+          "kernelspec": {
+            "display_name": "Python 3",
+            "language": "python",
+            "name": "python3"
+          },
+          "language_info": {
+            "codemirror_mode": {
+              "name": "ipython",
+              "version": 3
+            },
+            "file_extension": ".py",
+            "mimetype": "text/x-python",
+            "name": "python",
+            "nbconvert_exporter": "python",
+            "pygments_lexer": "ipython3",
+            "version": "3.9.7"
+          }
+        },
+        "nbformat": 4,
+        "nbformat_minor": 4
+      },
       "date": "2025-05-24",
       "tags": ["python", "data-science", "pandas", "matplotlib", "tutorial"],
       "language": "es",
