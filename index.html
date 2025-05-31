@@ -45,29 +45,9 @@
     <main class="main-content">
         <aside class="sidebar">
             <div class="filter-section">
-                <!-- Búsqueda siempre visible -->
-                <div class="search-section">
-                    <div class="search-box-sidebar">
-                        <input type="text" id="search-input-sidebar" placeholder="Buscar..." data-i18n-placeholder="nav.search">
-                        <button id="search-btn-sidebar">🔍</button>
-                    </div>
-                </div>
 
-                <!-- Quick filters -->
-                <div class="quick-filters">
-                    <button class="quick-filter-btn" data-category="mathematics" data-i18n="quickFilters.mathematics">🏷️ Matemáticas</button>
-                    <button class="quick-filter-btn" data-category="programming" data-i18n="quickFilters.programming">💻 Programación</button>
-                    <button class="quick-filter-btn" data-category="data-science" data-i18n="quickFilters.dataScience">📊 Datos</button>
-                    <button class="quick-filter-btn" data-category="physics" data-i18n="quickFilters.physics">🔬 Física</button>
-                </div>
-
-                <!-- Toggle para más filtros -->
-                <button id="toggle-filters" class="toggle-filters-btn" data-i18n="filters.moreFilters">
-                    🔽 Más filtros
-                </button>
-
-                <!-- Filtros expandibles -->
-                <div id="expanded-filters" class="expanded-filters hidden">
+                <!-- Búsqueda por Filtros -->
+                <div id="filters" class="filters">
                     <div class="filter-group">
                         <h4 data-i18n="filters.tags">Tags</h4>
                         <div class="filter-options" id="tag-filters"></div>
@@ -84,8 +64,6 @@
                     <button id="clear-filters" data-i18n="filters.clear">Limpiar filtros</button>
                 </div>
 
-                <!-- Filtros activos -->
-                <div id="active-filters" class="active-filters"></div>
             </div>
         </aside>
 
@@ -110,7 +88,6 @@
 
             <div class="content-grid" id="content-grid"></div>
             <div class="article-view" id="article-view" style="display: none;"></div>
-            <div class="pagination" id="pagination"></div>
         </section>
     </main>
 
@@ -121,6 +98,7 @@
     <script src="js/utils/storage.js"></script>
     <script src="js/router.js"></script>
     <script src="js/renderers/notebook.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
+
 </body>
 </html>

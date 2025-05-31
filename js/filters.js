@@ -108,6 +108,52 @@ class Filters {
         return sorted;
     }
 
+
+    clearFilters() {
+        this.currentPage = 1;
+
+        // Limpiar controles
+        const searchInputs = document.querySelectorAll('#search-input, #search-input-sidebar');
+        searchInputs.forEach(input => input.value = '');
+        
+        const dateFilter = document.getElementById('date-filter');
+        if (dateFilter) dateFilter.value = '';
+        
+        const checkboxes = document.querySelectorAll('#tag-filters input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = false);
+
+        this.updateContentGrid();
+        this.updateActiveFilters();
+    }
+
+
+    async loadText(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+
     static getFilterSummary(filters) {
         const summary = [];
 
@@ -135,3 +181,91 @@ class Filters {
         return summary;
     }
 }
+
+
+    updateActiveFilters() {
+        const activeFiltersContainer = document.getElementById('active-filters');
+        if (!activeFiltersContainer) return;
+
+        let filtersHTML = '';
+
+        // Búsqueda
+        if (this.currentFilters.search) {
+            filtersHTML += `<div class="filter-chip">🔍 "${this.currentFilters.search}" <span class="remove" data-filter="search">✕</span></div>`;
+        }
+
+        // Tags
+        this.currentFilters.tags.forEach(tag => {
+            filtersHTML += `<div class="filter-chip">🏷️ ${tag} <span class="remove" data-filter="tag" data-value="${tag}">✕</span></div>`;
+        });
+
+        // Fecha
+        if (this.currentFilters.date) {
+            const dateLabel = window.i18n.t(`filters.dateOptions.${this.currentFilters.date}`);
+            filtersHTML += `<div class="filter-chip">📅 ${dateLabel} <span class="remove" data-filter="date">✕</span></div>`;
+        }
+
+        activeFiltersContainer.innerHTML = filtersHTML;
+
+        // Event listeners para remover filtros
+        activeFiltersContainer.querySelectorAll('.remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const filterType = e.target.dataset.filter;
+                const value = e.target.dataset.value;
+                this.removeFilter(filterType, value);
+            });
+        });
+    }
+
+    removeFilter(filterType, value) {
+        switch(filterType) {
+            case 'search':
+                this.currentFilters.search = '';
+                const searchInputs = document.querySelectorAll('#search-input, #search-input-sidebar');
+                searchInputs.forEach(input => input.value = '');
+                break;
+            case 'tag':
+                this.currentFilters.tags = this.currentFilters.tags.filter(t => t !== value);
+                const tagCheckbox = document.querySelector(`#tag-filters input[value="${value}"]`);
+                if (tagCheckbox) tagCheckbox.checked = false;
+                break;
+            case 'date':
+                this.currentFilters.date = '';
+                const dateFilter = document.getElementById('date-filter');
+                if (dateFilter) dateFilter.value = '';
+                break;
+        }
+        
+        this.currentPage = 1;
+        this.updateContentGrid();
+        this.updateActiveFilters();
+    }
+
+    filterByDate(posts, period) {
+        if (!period) return posts;
+        
+        const now = new Date();
+        const filterDate = new Date();
+        
+        switch(period) {
+            case 'week':
+                filterDate.setDate(now.getDate() - 7);
+                break;
+            case 'month':
+                filterDate.setMonth(now.getMonth() - 1);
+                break;
+            case 'year':
+                filterDate.setFullYear(now.getFullYear() - 1);
+                break;
+            default:
+                return posts;
+        }
+        
+        return posts.filter(post => new Date(post.date) >= filterDate);
+    }
+}
+
+// Inicializar la aplicación cuando el DOM esté listo
+window.addEventListener('DOMContentLoaded', () => {
+    window.blogApp = new BlogApp();
+});

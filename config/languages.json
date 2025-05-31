@@ -12,19 +12,12 @@
       "tags": "Tags",
       "date": "Fecha",
       "clear": "Limpiar filtros",
-      "moreFilters": "🔽 Más filtros",
       "dateOptions": {
         "all": "Todas",
         "week": "Última semana",
         "month": "Último mes", 
         "year": "Último año"
       }
-    },
-    "quickFilters": {
-      "mathematics": "🏷️ Matemáticas",
-      "programming": "💻 Programación",
-      "dataScience": "📊 Datos",
-      "physics": "🔬 Física"
     },
     "sort": {
       "orderBy": "🔽 Ordenar por",
@@ -63,19 +56,12 @@
       "tags": "Tags",
       "date": "Date",
       "clear": "Clear filters",
-      "moreFilters": "🔽 More filters",
       "dateOptions": {
         "all": "All",
         "week": "Last week",
         "month": "Last month",
         "year": "Last year"
       }
-    },
-    "quickFilters": {
-      "mathematics": "🏷️ Mathematics",
-      "programming": "💻 Programming",
-      "dataScience": "📊 Data",
-      "physics": "🔬 Physics"
     },
     "sort": {
       "orderBy": "🔽 Sort by",

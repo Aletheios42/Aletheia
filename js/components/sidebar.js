@@ -7,6 +7,7 @@ class Sidebar {
         this.updateTexts();
     }
 
+
     static updateFormatFilters(selectedFormats) {
         const formatFilters = document.getElementById('format-filters');
         if (!formatFilters) return;
@@ -75,6 +76,31 @@ class Sidebar {
             <option value="year" ${selectedDate === 'year' ? 'selected' : ''}>${window.i18n.t('filters.dateOptions.year')}</option>
         `;
     }
+
+    updateSidebarTexts() {
+        // Actualizar títulos de filtros
+        document.querySelectorAll('.filter-section [data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            element.textContent = window.i18n.t(key);
+        });
+
+        // Actualizar opciones de fecha
+        const dateFilter = document.getElementById('date-filter');
+        if (dateFilter) {
+            const selectedValue = dateFilter.value;
+            dateFilter.innerHTML = `
+                <option value="">${window.i18n.t('filters.dateOptions.all')}</option>
+                <option value="week">${window.i18n.t('filters.dateOptions.week')}</option>
+                <option value="month">${window.i18n.t('filters.dateOptions.month')}</option>
+                <option value="year">${window.i18n.t('filters.dateOptions.year')}</option>
+            `;
+            dateFilter.value = selectedValue;
+        }
+
+        // Re-generar filtros de tags para actualizar textos
+        this.updateTagFilters();
+    }
+
 
     static updateTexts() {
         const filterTitle = document.querySelector('.filter-section h3');

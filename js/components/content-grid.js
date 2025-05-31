@@ -127,4 +127,17 @@ class ContentGrid {
             }
         });
     }
+
+    showContentGrid() {
+        const contentGrid = document.getElementById('content-grid');
+        const articleView = document.getElementById('article-view');
+        
+        if (contentGrid) contentGrid.style.display = 'grid';
+        if (articleView) articleView.style.display = 'none';
+    }
+
+    hideContentGrid() {
+        const contentGrid = document.getElementById('content-grid');
+        if (contentGrid) contentGrid.style.display = 'none';
+    }
 }

@@ -9,6 +9,16 @@ class Router {
         window.addEventListener('load', () => this.handleRoute());
     }
 
+    setupRoutes() {
+        this.router.addRoute('/', () => this.showHome());
+        this.router.addRoute('/articles', () => this.showArticles());
+        this.router.addRoute('/article/:id', (params) => this.showArticle(params.id));
+        this.router.addRoute('/tag/:tag', (params) => this.showTag(params.tag));
+        this.router.addRoute('/about', () => this.showAbout());
+        this.router.addRoute('/contact', () => this.showContact());
+        this.router.addRoute('/404', () => this.showNotFound());
+    }
+
     addRoute(path, handler) {
         this.routes[path] = handler;
     }
